@@ -1,0 +1,48 @@
+﻿@model IEnumerable<SDW.WebServiceJogoAPI.Models.Acesso>
+
+<h3>Lista de Acessos</h3>
+
+@Helper.Mensagem(TempData["Msg"])
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info">Nenhum Acesso Cadastrado na Base de Dados</div>
+}
+else
+{
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AcessoId)
+            @Html.DisplayNameFor(model => model.IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th></th>
+    </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Senha)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.AcessoId }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.AcessoId })
+                </td>
+            </tr>
+        }
+</table>
+}

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SDW.WebServiceJogo.MVC.Models.AcessoColaborador>
+
+<h3>Lista de Acessos</h3>
+@Helper.Mensagem(TempData["Msg"])
+<hr/>
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info">Nenhum Acesso Cadastrado na Base de Dados</div>
+}
+else
+{
+<table class="table table-hover">
+    <tr>
+        <th>IP</th>
+        <th>Usuario</th>
+        <th>Senha</th>
+        <th>Colaborador Ativo</th>
+    </tr>
+
+@foreach (var item in Model)
+{
+
+    var status = "alert alert-danger";
+
+    if (item.Colaborador.Nome.Equals("Livre"))
+    {
+        status = "alert alert-success";
+    }
+        <tr class="@status">
+            <td>@item.Acesso.IP</td>
+            <td>@item.Acesso.Usuario</td>
+            <td>@item.Acesso.Senha</td>
+            <td>@item.Colaborador.Nome</td>
+            <td>
+                <a class="btn btn-primary"
+                   href="@Url.Action("Editar", "AcessoColaborador", new { id = item.AcessoColaboradorId })">
+                    <i class="glyphicon glyphicon-pencil"></i>
+                </a> &nbsp;
+                <a class="btn btn-danger"
+                   href="@Url.Action("Liberar", "AcessoColaborador", new { id = item.AcessoColaboradorId })"
+                   onclick="return confirm('Desejar liberar o acesso?');">
+                    <i class="glyphicon glyphicon-remove"></i>
+                </a>
+
+            </td>
+        </tr>
+
+}
+
+
+</table>
+}
