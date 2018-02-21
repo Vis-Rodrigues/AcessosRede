@@ -1,0 +1,56 @@
+﻿@model IEnumerable<SDW.WebServiceJogoAPI.Models.Acesso>
+
+<h3>Lista de Acessos</h3>
+
+@Helper.Mensagem(TempData["Msg"])
+
+@if (Model.Count() == 0)
+{
+    <div class="alert alert-info">Nenhum Acesso Cadastrado na Base de Dados</div>
+}
+else
+{
+<table class="table table-striped">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.AcessoId)
+            @Html.DisplayNameFor(model => model.IP)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Usuario)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Senha)
+        </th>
+        <th></th>
+    </tr>
+
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Senha)
+                </td>
+                <td>
+                    <a class="btn btn-primary"
+                       href="@Url.Action("Editar", "Acesso", new { id = item.AcessoId })">
+                        <i class="glyphicon glyphicon-pencil"></i>
+                    </a> &nbsp;
+                    <a class="btn btn-danger"
+                       href="@Url.Action("Delete", "Acesso", new { id = item.AcessoId })"
+                       onclick="return confirm('Desejar excluir o acesso?');">
+                        <i class="glyphicon glyphicon-remove"></i>
+                    </a>
+
+                </td>
+            </tr>
+        }
+</table>
+}
